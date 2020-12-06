@@ -1,3 +1,5 @@
+package JavaDev.NetBeansProjects.Test.src;
+
 import static java.lang.System.*;
 
 public class Test {
