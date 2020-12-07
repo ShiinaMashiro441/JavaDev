@@ -33,23 +33,31 @@ import java.util.regex.*;
 
 public class Keywords_scan {
     public static void main(String args[]) {
-        // fileScan();
 
-        List list = fileInput(new File(new Scanner(System.in).nextLine()));
+        Scanner sc = new Scanner(System.in);
+        out.println("---Method 1---");
+        out.print("Input the txt file URL: ");
+        fileScan(sc.nextLine());
+
+        out.printf("---Method 2---\n---Loading---\n");
+        out.print("Input the txt file URL: ");
+        List list = fileInput(new File(sc.nextLine()));
         for (int i = 0; i < list.size(); i++) {
             out.println(list.get(i));
         }
-        out.println("-----");
-        parseString(list);
+        out.println("---Parsing---");
+        list = parseString(list);
+        out.println("---Sorting---");
+        Collections.sort(list);
+        out.println(list);
     }
 
-    public static void fileScan() {
+    public static void fileScan(String filePath) {
 
         String data;
         List<String> list = new ArrayList<String>();
 
-        try (FileReader fr = new FileReader("./JavaDev/NetBeansProjects/Test/src/keywords.txt");
-                BufferedReader br = new BufferedReader(fr);) {
+        try (FileReader fr = new FileReader(filePath); BufferedReader br = new BufferedReader(fr);) {
 
             while ((data = br.readLine()) != null) {
                 out.println(data);
@@ -63,6 +71,7 @@ public class Keywords_scan {
             err.println(e);
         }
 
+        out.println("---Sorted---");
         Collections.sort(list);
 
         for (String s : list)
@@ -91,13 +100,15 @@ public class Keywords_scan {
         return list;
     }
 
-    public static void parseString(List<String> list) {
+    public static List parseString(List<String> list) {
         Pattern ptn = Pattern.compile("[\t]");
         Iterator iter = list.iterator();
+        List<String> tmp = new ArrayList<String>();
         while (iter.hasNext()) {
             String[] parsed = ptn.split(iter.next().toString());
-            for (String s : parsed)
-                out.println(s);
+            Collections.addAll(tmp, parsed);
         }
+        out.println(tmp);
+        return tmp;
     }
 }
