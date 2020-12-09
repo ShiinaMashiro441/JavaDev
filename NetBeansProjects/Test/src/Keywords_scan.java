@@ -42,14 +42,14 @@ public class Keywords_scan {
         out.printf("---Method 2---\n---Loading---\n");
         out.print("Input the txt file URL: ");
         List list = fileInput(new File(sc.nextLine()));
-        for (int i = 0; i < list.size(); i++) {
-            out.println(list.get(i));
-        }
+
         out.println("---Parsing---");
-        list = parseString(list);
+        out.print("Input delimeter (regex): ");
+        list = parseString(sc.nextLine(), list);
         out.println("---Sorting---");
-        Collections.sort(list);
-        out.println(list);
+        for (Object s : list) {
+            out.println(s);
+        }
     }
 
     public static void fileScan(String filePath) {
@@ -60,15 +60,11 @@ public class Keywords_scan {
         try (FileReader fr = new FileReader(filePath); BufferedReader br = new BufferedReader(fr);) {
 
             while ((data = br.readLine()) != null) {
-                out.println(data);
                 list.add(data);
-                Thread.sleep(150);
             }
 
         } catch (IOException ioe) {
             err.println(ioe);
-        } catch (Exception e) {
-            err.println(e);
         }
 
         out.println("---Sorted---");
@@ -88,7 +84,6 @@ public class Keywords_scan {
                 if (sb.toString().equalsIgnoreCase("null"))
                     break;
                 else {
-                    out.println(sb);
                     list.add(sb.toString());
                     sb.setLength(0);
                 }
@@ -100,14 +95,15 @@ public class Keywords_scan {
         return list;
     }
 
-    public static List parseString(List<String> list) {
-        Pattern ptn = Pattern.compile("[\t]");
+    public static List parseString(String regex, List<String> list) {
+        Pattern ptn = Pattern.compile(regex);
         Iterator iter = list.iterator();
         List<String> tmp = new ArrayList<String>();
         while (iter.hasNext()) {
             String[] parsed = ptn.split(iter.next().toString());
             Collections.addAll(tmp, parsed);
         }
+        Collections.sort(tmp);
         out.println(tmp);
         return tmp;
     }

@@ -3,9 +3,9 @@ continue
 for
 new
 switch
-assert***
+assert
 default
-goto*
+goto
 package
 synchronized
 boolean
@@ -24,7 +24,7 @@ import
 public
 throws
 case
-enum****
+enum
 instanceof
 return
 transient
@@ -41,9 +41,9 @@ void
 class
 finally
 long
-strictfp**
+strictfp
 volatile
-const*
+const
 float
 native
 super
