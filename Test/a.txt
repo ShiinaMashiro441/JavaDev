@@ -1,1 +1,66 @@
-a
+Keywords file path:
+E:\GitBash\GitRepository\JavaDev\NetBeansProjects\Test\src\keywords_original.txt 
+regex: 
+[\t]
+[abstract, assert, boolean, break, byte, case, catch, char, class, const, continue, default, do, double, else, enum, extends, final, finally, float, for, goto, if, implements, import, instanceof, int, interface, long, native, new, package, private, protected, public, return, short, static, strictfp, super, switch, synchronized, this, throw, throws, transient, try, void, volatile, while]
+Source code file path: 
+E:\GitBash\GitRepository\JavaDev\NetBeansProjects\Test\src\Keywords_scan.java
+regex: 
+[,.:;()<>{}|\s]
+Result: 
+
+In static main() :
+for : 1
+new : 2
+public : 1
+static : 1
+void : 1
+
+In static fileScan() :
+catch : 1
+for : 1
+new : 3
+public : 1
+static : 1
+try : 1
+void : 1
+while : 1
+
+In static fileInput() :
+break : 1
+catch : 1
+do : 1
+else : 1
+if : 1
+new : 4
+public : 1
+return : 1
+static : 1
+try : 1
+while : 1
+
+In static parseString() :
+new : 1
+public : 1
+return : 1
+static : 1
+while : 1
+
+
+In this source code:
+break : 1
+catch : 2
+class : 1
+do : 1
+else : 1
+for : 2
+if : 1
+import : 8
+new : 10
+package : 1
+public : 5
+return : 2
+static : 5
+try : 2
+void : 2
+while : 3

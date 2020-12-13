@@ -41,7 +41,7 @@ public class Keywords_scan {
 
         out.printf("---Method 2---\n---Loading---\n");
         out.print("Input the txt file URL: ");
-        List list = fileInput(new File(sc.nextLine()));
+        List list = fileInput(sc.nextLine());
 
         out.println("---Parsing---");
         out.print("Input delimeter (regex): ");
@@ -75,24 +75,29 @@ public class Keywords_scan {
 
     }
 
-    public static List fileInput(File inputFile) {
-        StringBuilder sb = new StringBuilder();
-        List<String> list = new ArrayList<String>();
-        try (FileReader fr = new FileReader(inputFile); BufferedReader br = new BufferedReader(fr);) {
+    public static List<String> fileInput(String filepath) {
+        List<String> locList = new ArrayList<>();
+        StringBuilder loc = new StringBuilder();
+        File f = new File(filepath);
+
+        try (FileReader fr = new FileReader(f); BufferedReader br = new BufferedReader(fr);) {
+
             do {
-                sb.append(br.readLine());
-                if (sb.toString().equalsIgnoreCase("null"))
+                loc.append(br.readLine());
+                if (loc.toString().equalsIgnoreCase("null"))
                     break;
                 else {
-                    list.add(sb.toString());
-                    sb.setLength(0);
+                    locList.add(loc.toString().trim());
+                    loc.setLength(0);
                 }
             } while (true);
 
-        } catch (IOException ioe) {
-            err.println(ioe);
+        } catch (Exception e) {
+            err.println(e);
         }
-        return list;
+
+        return locList;
+
     }
 
     public static List parseString(String regex, List<String> list) {
