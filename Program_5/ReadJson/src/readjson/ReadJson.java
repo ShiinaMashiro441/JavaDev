@@ -25,10 +25,20 @@ public class ReadJson {
     static Gson gson;
     static List<String> files;
     public static void main(String[] args) {
-        String path = "C:\\Users\\MH588\\Desktop\\git\\JavaDev\\Program_5\\ReadJson\\src\\readjson";
+        Scanner sc = new Scanner(System.in);
+        out.println("Please input the target json file's parent directory = ");
+        String path = sc.nextLine();
         jsonToMap(getCurrentDirectoryAllFiles(path));
         writeToDB();
         saveToFile();
+        
+        // SYSTEM PAUSE
+        out.println("按下ENTER鍵離開...");
+        while(sc.hasNextLine()) {
+            String s = sc.nextLine();
+            if (s.isEmpty())
+                break;
+        }
     }
     
     public static List<String> getCurrentDirectoryAllFiles(String path) {
