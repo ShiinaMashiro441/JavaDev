@@ -25,9 +25,10 @@ public class ReadJson {
     static Gson gson;
     static List<String> files;
     public static void main(String[] args) {
-        String path = "E:\\GitBash\\GitRepository\\Repository\\JavaDev\\Program_5\\ReadJson\\src\\readjson";
+        String path = "C:\\Users\\MH588\\Desktop\\git\\JavaDev\\Program_5\\ReadJson\\src\\readjson";
         jsonToMap(getCurrentDirectoryAllFiles(path));
-        process();
+        writeToDB();
+        saveToFile();
     }
     
     public static List<String> getCurrentDirectoryAllFiles(String path) {
@@ -61,14 +62,8 @@ public class ReadJson {
         }
         
     }
-    
-    public static void process() {
-        writeToDB();
-        saveToFile();
-    }
-    
+        
     public static void saveToFile() {
-        out.println("=====TEST=====");
         File f;
         
         for(int i=0; i<map.length; i++) {
@@ -101,25 +96,25 @@ public class ReadJson {
     }
     
     public static void writeToDB() {
-        String url = "jdbc:mysql://111.241.71.171:3334/json_record?user=root&password=P@ssw0rd";
-        String sql = "insert into json_record (card_id, tx_mode,"
-                   + " issuer_id, entry_time, exit_time, entry_stationid, exit_stationid, qr_data)"
-                   + "values(?, ?, ?, ?, ?, ?, ?, ?)";
+        String url = "jdbc:mysql://127.0.0.1:9999/test?allowPublicKeyRetrieval=true&useSSL=false";
+        String sql = "INSERT INTO json_record VALUES(?, ?, ?, ?, ?, ?, ?, ?);";
         try(Connection conn = 
-                DriverManager.getConnection(url);
-            PreparedStatement pstmt = conn.prepareCall(sql);) {
-            
+                DriverManager.getConnection(url, "user", "password");
+            ) {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
             for(int i=0; i<map.length; i++) {
-                pstmt.setString(1, map[i].get("card_id").toString());
-                pstmt.setInt(2, Integer.parseInt(map[i].get("tx_mode").toString()));
-                pstmt.setInt(3, Integer.parseInt(map[i].get("issuer_id").toString()));
-                pstmt.setTimestamp(4, Timestamp.valueOf(map[i].get("entry_time").toString()));
-                pstmt.setTimestamp(5, Timestamp.valueOf(map[i].get("exit_time").toString()));
-                pstmt.setInt(6, Integer.parseInt(map[i].get("entry_stationid").toString()));
-                pstmt.setInt(7, Integer.parseInt(map[i].get("exit_stationid").toString()));
-                pstmt.setString(8, map[i].get("qr_data").toString());
+                pstmt.setString(1, map[i].get("card_id".toUpperCase()).toString());
+                pstmt.setInt(2, Integer.parseInt(map[i].get("tx_mode".toUpperCase()).toString()));
+                pstmt.setInt(3, Integer.parseInt(map[i].get("issuer_id".toUpperCase()).toString()));
+                pstmt.setString(4, map[i].get("entry_time".toUpperCase()).toString());
+                pstmt.setString(5, map[i].get("exit_time".toUpperCase()).toString());
+//                pstmt.setTimestamp(4, Timestamp.valueOf(map[i].get("entry_time".toUpperCase()).toString()));
+//                pstmt.setTimestamp(5, Timestamp.valueOf(map[i].get("exit_time".toUpperCase()).toString()));
+                pstmt.setInt(6, Integer.parseInt(map[i].get("entry_station_id".toUpperCase()).toString()));
+                pstmt.setInt(7, Integer.parseInt(map[i].get("exit_station_id".toUpperCase()).toString()));
+                pstmt.setString(8, map[i].get("qr_data".toUpperCase()).toString());
                 
-                pstmt.execute();
+                pstmt.executeUpdate();
             }
             
             
