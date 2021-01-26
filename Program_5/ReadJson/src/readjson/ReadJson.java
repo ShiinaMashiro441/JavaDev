@@ -104,9 +104,9 @@ public class ReadJson {
         }
         
     }
-    
+//    allowPublicKeyRetrieval=true&useSSL=false
     public static void writeToDB() {
-        String url = "jdbc:mysql://127.0.0.1:9999/test?allowPublicKeyRetrieval=true&useSSL=false";
+        String url = "jdbc:mysql://192.168.253.1:3306/test?";
         String sql = "INSERT INTO json_record VALUES(?, ?, ?, ?, ?, ?, ?, ?);";
         try(Connection conn = 
                 DriverManager.getConnection(url, "user", "password");
@@ -118,8 +118,6 @@ public class ReadJson {
                 pstmt.setInt(3, Integer.parseInt(map[i].get("issuer_id".toUpperCase()).toString()));
                 pstmt.setString(4, map[i].get("entry_time".toUpperCase()).toString());
                 pstmt.setString(5, map[i].get("exit_time".toUpperCase()).toString());
-//                pstmt.setTimestamp(4, Timestamp.valueOf(map[i].get("entry_time".toUpperCase()).toString()));
-//                pstmt.setTimestamp(5, Timestamp.valueOf(map[i].get("exit_time".toUpperCase()).toString()));
                 pstmt.setInt(6, Integer.parseInt(map[i].get("entry_station_id".toUpperCase()).toString()));
                 pstmt.setInt(7, Integer.parseInt(map[i].get("exit_station_id".toUpperCase()).toString()));
                 pstmt.setString(8, map[i].get("qr_data".toUpperCase()).toString());
